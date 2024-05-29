@@ -115,25 +115,24 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:3'],
         ];
-
+        
         $messages = [
             'email.required' => 'O e-mail é obrigatório.',
             'email.email' => 'Por favor, insira um e-mail válido.',
             'password.required' => 'Por favor, insira uma senha',
         ];
-
+        
         $validator = Validator::make( $request->all(), $rules, $messages );
-
+        
         if ($validator->fails()) {
             return response()->json( [ 'errors' => $validator->errors()->first() ], 400);
         }
-
+        
         $user = User::where('email', $request['email'])->get()->first();
-
+        
         if(!$user){
             return response()->json(['errors' => 'Conta não encontrada!'], 401);
         }
-        return $user;
 
         if (!password_verify($request['password'], $user['password'])) {
             return response()->json(['errors' => 'Senha invalida'], 401);

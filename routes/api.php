@@ -18,6 +18,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::put('update/{id}', [UserController::class, 'UpdateUser']);
     Route::delete('{id}', [UserController::class, 'DeleteUser']);
 });
+
 Route::group(['prefix' => 'book'], function () {
     Route::get('/getAll', [BookController::class, 'GetAllBook']);
     Route::get('/{id}', [BookController::class, 'GetBook']);
